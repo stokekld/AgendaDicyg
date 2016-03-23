@@ -1,3 +1,5 @@
 *.mwb.bak
 AgendaDicygEnv/
 *.mysql.conf
+*.pyc
+*inspectdb.py
