@@ -6,6 +6,9 @@ class Bloque(models.Model):
     id_bloq = models.AutoField(primary_key=True)
     bloq_tiempo = models.FloatField(unique=True)
 
+    def __str__(self):
+        return str(self.bloq_tiempo)
+
     class Meta:
         managed = False
         db_table = 'bloque'
@@ -19,6 +22,9 @@ class Usuario(models.Model):
     us_slug = models.CharField(unique=True, max_length=10)
     us_user = models.CharField(unique=True, max_length=15)
     us_pass = models.CharField(max_length=35)
+
+    def __unicode__(self):
+        return self.us_nombre + " " + self.us_apat + " " + self.us_amat
 
     class Meta:
         managed = False

@@ -10,6 +10,9 @@ class Persona(models.Model):
     per_amat = models.CharField(max_length=25)
     per_email = models.CharField(max_length=50)
 
+    def __unicode__(self):
+    	return self.per_nombre + " " + self.per_apat + " " + self.per_amat
+
     class Meta:
         managed = False
         db_table = 'persona'
