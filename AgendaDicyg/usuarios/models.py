@@ -9,17 +9,7 @@ class Bloque(models.Model):
     class Meta:
         managed = False
         db_table = 'bloque'
-
-class Periodo(models.Model):
-    id_prd = models.AutoField(primary_key=True)
-    id_us = models.ForeignKey('Usuario', models.DO_NOTHING, db_column='id_us')
-    prd_inicio = models.TimeField()
-    prd_fin = models.TimeField()
-
-    class Meta:
-        managed = False
-        db_table = 'periodo'
-
+        
 class Usuario(models.Model):
     id_us = models.AutoField(primary_key=True)
     id_bloq = models.ForeignKey(Bloque, models.DO_NOTHING, db_column='id_bloq')
@@ -33,4 +23,15 @@ class Usuario(models.Model):
     class Meta:
         managed = False
         db_table = 'usuario'
+
+class Periodo(models.Model):
+    id_prd = models.AutoField(primary_key=True)
+    id_us = models.ForeignKey(Usuario, models.DO_NOTHING, db_column='id_us')
+    prd_inicio = models.TimeField()
+    prd_fin = models.TimeField()
+
+    class Meta:
+        managed = False
+        db_table = 'periodo'
+
 
