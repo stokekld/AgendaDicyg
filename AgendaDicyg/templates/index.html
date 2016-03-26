@@ -1,0 +1,58 @@
+{% extends "template.html" %}
+
+{% block title %}
+
+{{ titulo }}
+
+{% endblock %}
+
+{% block head %}
+
+{% load staticfiles %}
+<!-- Custom styles for this template -->
+<link href="{% static 'css/custom.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block container %}
+
+<nav class="navbar navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">Agenda Dicyg</a>
+		</div>
+		<div id="navbar" class="collapse navbar-collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li><a href="#">Inicia sesión</a></li>
+			</ul>
+		</div><!--/.nav-collapse -->
+	</div>
+</nav>
+
+<div class="container">
+
+	{% for us in usuarios %}
+		<div class="row">
+			<div class="col-md-2 col-md-offset-2">
+				{{us.us_nombre}}
+			</div>
+			<div class="col-md-2">
+				{{us.us_apat}}
+			</div>
+			<div class="col-md-2">
+				{{us.us_amat}}
+			</div>
+			<div class="col-md-1">
+				<a href="{% url 'agenda' slug=us.us_slug %}" class="btn btn-info btn-xs" role="button">Agenda</a>
+			</div>				
+		</div>
+	{% endfor %}
+
+</div><!-- /.container -->
+{% endblock %}

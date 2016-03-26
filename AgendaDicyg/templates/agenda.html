@@ -1,0 +1,79 @@
+{% extends "template.html" %}
+
+{% block title %}
+
+{{ titulo }}
+
+{% endblock %}
+
+{% block head %}
+
+{% load staticfiles %}
+<!-- Custom styles for this template -->
+<link href="{% static 'css/custom.css' %}" rel="stylesheet">
+<link href="{% static 'css/bootstrap-datetimepicker.min.css' %}" rel="stylesheet">
+
+{% endblock %}
+
+{% block container %}
+
+<nav class="navbar navbar-fixed-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">Agenda Dicyg</a>
+		</div>
+	</div>
+</nav>
+
+<div class="container">
+
+	<h2>{{ nombre }}</h2>
+	{% for per in periodos %}
+		<h4>{{per.prd_inicio}} a {{per.prd_fin}}</h4>
+	{% endfor %}
+	<input type="hidden" id="urlQuery" value="{% url 'query' %}">
+	<div class="row">
+		<div class="col-md-4">
+			<div id="datetimepicker12"></div>
+		</div>
+	</div>
+
+</div><!-- /.container -->
+
+
+{% endblock %}
+
+{% block scripts %}
+<script src="{% static 'js/moment.min.js' %}"></script>
+<script src="{% static 'js/bootstrap-datetimepicker.min.js' %}"></script>
+<script src="{% static 'js/es.js' %}"></script>
+
+<script type="text/javascript">
+	var dateToday = new Date();
+	console.log(dateToday),
+    $(function () {
+        $('#datetimepicker12').datetimepicker({
+            inline: true,
+            format: 'YYYY-MM-DD',
+            minDate: dateToday,
+            locale: 'es',
+            useCurrent: false
+        });
+
+        $('#datetimepicker12').on('dp.change', function(e){
+        	console.log(e);
+        	$.ajax({
+        		url: $("#urlQuery").val()
+        	}).done(function(data){
+        		console.log(data);
+        	});
+        });
+    });
+</script>
+{% endblock %}
