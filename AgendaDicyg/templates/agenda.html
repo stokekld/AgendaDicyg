@@ -34,10 +34,6 @@
 <div class="container">
 
 	<h2>{{ nombre }}</h2>
-	{% for per in periodos %}
-		<h4>{{per.prd_inicio}} a {{per.prd_fin}}</h4>
-	{% endfor %}
-	<input type="hidden" id="urlQuery" value="{% url 'query' %}">
 	<div class="row">
 		<div class="col-md-4">
 			<div id="datetimepicker12"></div>
@@ -56,7 +52,7 @@
 
 <script type="text/javascript">
 	var dateToday = new Date();
-	console.log(dateToday),
+
     $(function () {
         $('#datetimepicker12').datetimepicker({
             inline: true,
@@ -67,11 +63,14 @@
         });
 
         $('#datetimepicker12').on('dp.change', function(e){
-        	console.log(e);
         	$.ajax({
-        		url: $("#urlQuery").val()
-        	}).done(function(data){
-        		console.log(data);
+        		method: "POST",
+        		url: "{% url 'query' %}",
+        		data: {
+        			csrfmiddlewaretoken: "{{ csrf_token }}",
+        			fecha: e.date.format("YYYY-MM-DD"),
+        			slug: "{{ slug }}"
+        		}
         	});
         });
     });
